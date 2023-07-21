@@ -21,15 +21,15 @@ public enum E_TimeZone{
 
     private static final Map<E_TimeZone, String> timezone =
             Collections.unmodifiableMap(
-                    Stream.of(values()).collect(Collectors.toMap(Function.identity(), E_TimeZone::getTimeZoneId)));
-    private final String timeZoneId;
+                    Stream.of(values()).collect(Collectors.toMap(Function.identity(), E_TimeZone::getTimeZoneStr)));
+    private final String timeZoneStr;
 
     E_TimeZone(String timeZoneId) {
-        this.timeZoneId = timeZoneId;
+        this.timeZoneStr = timeZoneId;
     }
 
-    public String getTimeZoneId() {
-        return timeZoneId;
+    public String getTimeZoneStr() {
+        return timeZoneStr;
     }
 
     public static String Find(E_TimeZone eTimeZone) {
