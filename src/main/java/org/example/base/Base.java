@@ -3,7 +3,8 @@ package org.example.base;
 public enum Base{
     BLANK(" "),
     NONE(""),
-    ZERO("0");
+    ZERO("0"),
+    ONE("1");
 
     private final String value;
 
