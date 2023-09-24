@@ -3,6 +3,7 @@ package org.example.base;
 public enum Base{
     BLANK(" "),
     NONE(""),
+    DOT("\\."),
     ZERO("0"),
     ONE("1");
 
