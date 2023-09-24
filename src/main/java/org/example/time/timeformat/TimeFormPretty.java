@@ -1,6 +1,6 @@
 package org.example.time.timeformat;
 
-public enum E_TimeFormPretty implements E_TimeForm {
+public enum TimeFormPretty implements ITimeForm {
     HOUR_MINUTE("hh:mm"),
     HOUR_MINUTE_SECOND("hh:mm:ss"),
     HOUR_MINUTE_SECOND_MILLISECOND("hh:mm:ss.SSS"),
@@ -15,7 +15,7 @@ public enum E_TimeFormPretty implements E_TimeForm {
 
     private final String form;
 
-    E_TimeFormPretty(String format) {
+    TimeFormPretty(String format) {
         this.form = format;
     }
 

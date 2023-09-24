@@ -1,8 +1,6 @@
 package org.example.time.timeformat;
 
-import java.time.format.DateTimeFormatter;
-
-public enum E_TimeFormStd implements E_TimeForm{
+public enum TimeFormStd implements ITimeForm {
 
     NONE("None", 0),
     YYYYMMDDHH24MISSMILLI("yyyyMMddHHmmssSSS", 17),
@@ -17,7 +15,7 @@ public enum E_TimeFormStd implements E_TimeForm{
     private final String form;
     private final int len;
 
-    E_TimeFormStd(String form, int len) {
+    TimeFormStd(String form, int len) {
         this.form = form;
         this.len = len;
     }

@@ -6,7 +6,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public enum E_TimeZone{
+public enum TimeZoneType {
 
     SEOUL("Asia/Seoul"),
     TOKYO("Asia/Tokyo"),
@@ -49,16 +49,16 @@ public enum E_TimeZone{
     NOUMEA("Pacific/Noumea"),
     PERTH("Australia/Perth");
 
-    private static final Map<E_TimeZone, String> timeZone =
+    private static final Map<TimeZoneType, String> timeZone =
             Collections.unmodifiableMap(
-                    Stream.of(values()).collect(Collectors.toMap(Function.identity(), E_TimeZone::getTimeZoneStr)));
+                    Stream.of(values()).collect(Collectors.toMap(Function.identity(), TimeZoneType::getTimeZoneStr)));
 
-    private static final Map<String, E_TimeZone> timeZoneId =
+    private static final Map<String, TimeZoneType> timeZoneId =
             Collections.unmodifiableMap(
-                    Stream.of(values()).collect(Collectors.toMap(E_TimeZone::getTimeZoneStr, Function.identity())));
+                    Stream.of(values()).collect(Collectors.toMap(TimeZoneType::getTimeZoneStr, Function.identity())));
     private final String timeZoneStr;
 
-    E_TimeZone(String timeZoneId) {
+    TimeZoneType(String timeZoneId) {
         this.timeZoneStr = timeZoneId;
     }
 
@@ -66,15 +66,15 @@ public enum E_TimeZone{
         return timeZoneStr;
     }
 
-    public static String Find(E_TimeZone eTimeZone) {
+    public static String Find(TimeZoneType eTimeZone) {
         final String result = timeZone.get(eTimeZone);
         if (result != null) return result;
 
         throw new IllegalArgumentException();
     }
 
-    public static E_TimeZone Find(String timeZoneStr) {
-        final E_TimeZone result = timeZoneId.get(timeZoneStr);
+    public static TimeZoneType Find(String timeZoneStr) {
+        final TimeZoneType result = timeZoneId.get(timeZoneStr);
         if (result != null) return result;
 
         throw new IllegalArgumentException();

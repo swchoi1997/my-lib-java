@@ -1,6 +1,6 @@
 package org.example.time.timeField;
 
-public enum E_TimeField{
+public enum TimeFieldType {
 
     NONE(-1, 0),
     YEAR(0, 4),
@@ -17,7 +17,7 @@ public enum E_TimeField{
     private final int field;
     private final int length;
 
-    E_TimeField(int field, int length) {
+    TimeFieldType(int field, int length) {
         this.field = field;
         this.length = length;
     }

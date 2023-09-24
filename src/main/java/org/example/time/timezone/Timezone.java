@@ -4,25 +4,25 @@ import java.time.ZoneId;
 import java.util.Objects;
 import java.util.TimeZone;
 
-public class C_Timezone {
+public class Timezone {
 
     private final ZoneId timeZoneId;
     private final String timeZoneStr;
 
-    public C_Timezone() {
+    public Timezone() {
         this(TimeZone.getDefault().getID());
     }
 
-    public C_Timezone(final String desireTimeZone) {
-        this(E_TimeZone.Find(desireTimeZone));
+    public Timezone(final String desireTimeZone) {
+        this(TimeZoneType.Find(desireTimeZone));
     }
 
 
-    public C_Timezone(final E_TimeZone desireTimeZone) {
-        this(ZoneId.of(desireTimeZone.getTimeZoneStr()), E_TimeZone.Find(desireTimeZone));
+    public Timezone(final TimeZoneType desireTimeZone) {
+        this(ZoneId.of(desireTimeZone.getTimeZoneStr()), TimeZoneType.Find(desireTimeZone));
     }
 
-    private C_Timezone(ZoneId timeZoneId, String timeZoneStr) {
+    private Timezone(ZoneId timeZoneId, String timeZoneStr) {
         this.timeZoneId = timeZoneId;
         this.timeZoneStr = timeZoneStr;
     }
@@ -43,7 +43,7 @@ public class C_Timezone {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        C_Timezone that = (C_Timezone) o;
+        Timezone that = (Timezone) o;
         return Objects.equals(timeZoneId, that.timeZoneId) && Objects.equals(timeZoneStr,
                 that.timeZoneStr);
     }

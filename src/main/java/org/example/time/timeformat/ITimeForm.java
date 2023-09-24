@@ -1,12 +1,12 @@
 package org.example.time.timeformat;
 
-import static org.example.time.timeformat.E_TimeFormPretty.DATE_HOUR_MINUTE_SECOND_MILLISECOND;
-import static org.example.time.timeformat.E_TimeFormPretty.HOUR_MINUTE_SECOND_MILLISECOND;
-import static org.example.time.timeformat.E_TimeFormStd.YYYY;
-import static org.example.time.timeformat.E_TimeFormStd.YYYYMM;
-import static org.example.time.timeformat.E_TimeFormStd.YYYYMMDD;
-import static org.example.time.timeformat.E_TimeFormStd.YYYYMMDDHH24MISS;
-import static org.example.time.timeformat.E_TimeFormStd.YYYYMMDDHH24MISSMILLI;
+import static org.example.time.timeformat.TimeFormPretty.DATE_HOUR_MINUTE_SECOND_MILLISECOND;
+import static org.example.time.timeformat.TimeFormPretty.HOUR_MINUTE_SECOND_MILLISECOND;
+import static org.example.time.timeformat.TimeFormStd.YYYY;
+import static org.example.time.timeformat.TimeFormStd.YYYYMM;
+import static org.example.time.timeformat.TimeFormStd.YYYYMMDD;
+import static org.example.time.timeformat.TimeFormStd.YYYYMMDDHH24MISS;
+import static org.example.time.timeformat.TimeFormStd.YYYYMMDDHH24MISSMILLI;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,15 +14,15 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import org.example.base.Base;
 
-public interface E_TimeForm {
+public interface ITimeForm {
 
     String getForm();
 
-    default DateTimeFormatter getDateTimeFormatter(final E_TimeForm eTimeForm) {
+    default DateTimeFormatter getDateTimeFormatter(final ITimeForm eTimeForm) {
         return DateTimeFormatter.ofPattern(eTimeForm.getForm());
     }
 
-    default boolean isSameTimeFormat(final E_TimeForm timeForm, final String strTime1, final String strTime2) {
+    default boolean isSameTimeFormat(final ITimeForm timeForm, final String strTime1, final String strTime2) {
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(timeForm.getForm());
         try {
             simpleDateFormat.parse(strTime1);
@@ -33,7 +33,7 @@ public interface E_TimeForm {
         }
     }
 
-    default String convertTimeFormat(final String time, final E_TimeForm timeForm) {
+    default String convertTimeFormat(final String time, final ITimeForm timeForm) {
         String timeFit = "";
         DateTimeFormatter inputFormatter = null;
         LocalDateTime dateTime = null;

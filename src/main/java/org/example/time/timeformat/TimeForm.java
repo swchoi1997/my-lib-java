@@ -1,6 +1,6 @@
 package org.example.time.timeformat;
 
-import static org.example.time.timeformat.E_TimeFormStd.YYYYMMDDHH24MISS;
+import static org.example.time.timeformat.TimeFormStd.YYYYMMDDHH24MISS;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -8,20 +8,20 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-public class C_TimeForm {
+public class TimeForm {
     private final String time;
-    private final E_TimeForm timeForm;
+    private final ITimeForm timeForm;
 
-    public C_TimeForm() {
+    public TimeForm() {
         this.time = LocalDateTime.now().format(DateTimeFormatter.ofPattern(YYYYMMDDHH24MISS.getForm()));
         this.timeForm = YYYYMMDDHH24MISS;
     }
 
-    public C_TimeForm(final String time) {
+    public TimeForm(final String time) {
         this(time, YYYYMMDDHH24MISS);
     }
 
-    public C_TimeForm(final String time, final E_TimeForm timeForm) {
+    public TimeForm(final String time, final ITimeForm timeForm) {
         this.time = timeForm.convertTimeFormat(time, timeForm);
         this.timeForm = timeForm;
     }
@@ -30,12 +30,12 @@ public class C_TimeForm {
         return time;
     }
 
-    public E_TimeForm getTimeForm() { return this.timeForm; }
-    public String convertTimeFormat(final E_TimeForm timeForm) {
+    public ITimeForm getTimeForm() { return this.timeForm; }
+    public String convertTimeFormat(final ITimeForm timeForm) {
         return timeForm.convertTimeFormat(this.time, timeForm);
     }
 
-    public boolean isFitTimeFormat(final String timeString, final E_TimeForm format) {
+    public boolean isFitTimeFormat(final String timeString, final ITimeForm format) {
         if (timeString.length() != format.getForm().length()) {
             return false;
         }
@@ -58,7 +58,7 @@ public class C_TimeForm {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        C_TimeForm that = (C_TimeForm) o;
+        TimeForm that = (TimeForm) o;
         return Objects.equals(time, that.time);
     }
 
