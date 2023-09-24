@@ -102,4 +102,8 @@ public class SshTunnelConn implements SshTunnel {
     private SshConnInfo getSshConnectionInfo() {
         return (SshConnInfo) sshConnectionInfo;
     }
+
+    public Session getSession() {
+        return this.session;
+    }
 }
