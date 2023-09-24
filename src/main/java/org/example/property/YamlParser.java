@@ -1,4 +1,4 @@
-package org.example.parse;
+package org.example.property;
 
 import static org.example.base.ExceptionMessage.ILLEGAL_ARGUMENT_EXCEPTION;
 
@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 import org.example.base.Base;
 import org.yaml.snakeyaml.Yaml;
 
-public class YamlParser {
+public class YamlParser implements IProperty{
 
     private static final Logger LOG = Logger.getLogger(YamlParser.class);
 
@@ -26,10 +26,12 @@ public class YamlParser {
         private static final YamlParser INSTANCE = new YamlParser();
     }
 
-    public void read(final String yamlPath){
+    public void load(final String path){
         try {
-            this.yamlArguments = new Yaml()
-                    .load(new FileReader(yamlPath));
+            synchronized (this) {
+                this.yamlArguments = new Yaml()
+                        .load(new FileReader(path));
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -37,7 +39,7 @@ public class YamlParser {
 
 
 
-    public Object Value(final String keys) {
+    public Object value(final String keys) {
         if (this.checkEmpty()) return null;
         if (keys.isEmpty() || keys.isBlank()) {
             LOG.error(ILLEGAL_ARGUMENT_EXCEPTION.getMessage());
