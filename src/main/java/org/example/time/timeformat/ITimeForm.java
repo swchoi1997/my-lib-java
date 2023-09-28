@@ -6,7 +6,9 @@ import static org.example.time.timeformat.TimeFormStd.YYYY;
 import static org.example.time.timeformat.TimeFormStd.YYYYMM;
 import static org.example.time.timeformat.TimeFormStd.YYYYMMDD;
 import static org.example.time.timeformat.TimeFormStd.YYYYMMDDHH24MISS;
+import static org.example.time.timeformat.TimeFormStd.YYYYMMDDHH24MISSMICRO;
 import static org.example.time.timeformat.TimeFormStd.YYYYMMDDHH24MISSMILLI;
+import static org.example.time.timeformat.TimeFormStd.YYYYMMDDHH24MISSNANO;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -33,26 +35,44 @@ public interface ITimeForm {
         }
     }
 
-    default String convertTimeFormat(final String time, final ITimeForm timeForm) {
+    default String convertTimeFormatStr(final String time, final ITimeForm timeForm) {
+        LocalDateTime localDateTime = this.convertTimeFormatLocal(time, timeForm);
+        return localDateTime.format(DateTimeFormatter.ofPattern(timeForm.getForm()));
+    }
+
+    default LocalDateTime convertTimeFormatLocal(final TimeForm timeForm) {
+        return this.convertTimeFormatLocal(timeForm.getTime(), timeForm.getTimeForm());
+    }
+
+    default LocalDateTime convertTimeFormatLocal(final String time, final ITimeForm timeForm) {
         String timeFit = "";
         DateTimeFormatter inputFormatter = null;
-        LocalDateTime dateTime = null;
+
         if ((timeForm == YYYYMMDDHH24MISSMILLI) || (timeForm == DATE_HOUR_MINUTE_SECOND_MILLISECOND) ||
                 (timeForm == HOUR_MINUTE_SECOND_MILLISECOND)) {
             timeFit = this.fillBlankTime(time, YYYYMMDDHH24MISSMILLI.getLen());
             inputFormatter = DateTimeFormatter.ofPattern(YYYYMMDDHH24MISSMILLI.getForm());
+        } else if (timeForm == YYYYMMDDHH24MISSMICRO) {
+            timeFit = this.fillBlankTime(time, YYYYMMDDHH24MISSMICRO.getLen());
+            inputFormatter = DateTimeFormatter.ofPattern(YYYYMMDDHH24MISSMICRO.getForm());
+        } else if (timeForm == YYYYMMDDHH24MISSNANO) {
+            timeFit = this.fillBlankTime(time, YYYYMMDDHH24MISSNANO.getLen());
+            inputFormatter = DateTimeFormatter.ofPattern(YYYYMMDDHH24MISSNANO.getForm());
         } else {
             timeFit = this.fillBlankTime(time, YYYYMMDDHH24MISS.getLen());
             inputFormatter = DateTimeFormatter.ofPattern(YYYYMMDDHH24MISS.getForm());
         }
 
-        dateTime = LocalDateTime.parse(timeFit, inputFormatter);
-        return dateTime.format(DateTimeFormatter.ofPattern(timeForm.getForm()));
+        return LocalDateTime.parse(timeFit, inputFormatter);
     }
 
     private String fillBlankTime(String time, int defaultLen) {
         if (time.length() > YYYYMMDDHH24MISS.getLen()) {
-            return time.substring(Integer.parseInt(Base.ZERO.getValue()), defaultLen);
+            if (time.length() > defaultLen) {
+                return time.substring(Integer.parseInt(Base.ZERO.getValue()), defaultLen);
+            }
+            return time + Base.ZERO.getValue().repeat(Math.abs(defaultLen - time.length()));
+
         }
         time = this.fillBlankDate(time);
         return time + Base.ZERO.getValue().repeat(Math.abs(defaultLen - time.length()));
