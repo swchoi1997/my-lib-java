@@ -1,6 +1,9 @@
 package org.example.time.timeformat;
 
 import static org.example.time.timeformat.TimeFormStd.YYYYMMDDHH24MISS;
+import static org.example.time.timeformat.TimeFormStd.YYYYMMDDHH24MISSMICRO;
+import static org.example.time.timeformat.TimeFormStd.YYYYMMDDHH24MISSMILLI;
+import static org.example.time.timeformat.TimeFormStd.YYYYMMDDHH24MISSNANO;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,17 +16,32 @@ public class TimeForm {
     private final ITimeForm timeForm;
 
     public TimeForm() {
-        this.time = LocalDateTime.now().format(DateTimeFormatter.ofPattern(YYYYMMDDHH24MISS.getForm()));
-        this.timeForm = YYYYMMDDHH24MISS;
+        this(LocalDateTime.now().format(DateTimeFormatter.ofPattern(YYYYMMDDHH24MISS.getForm())), YYYYMMDDHH24MISS);
     }
 
     public TimeForm(final String time) {
-        this(time, YYYYMMDDHH24MISS);
+        final TimeFormStd timeFormStd = this.checkTimeForm(time);
+        this.time = timeFormStd.convertTimeFormatStr(time, timeFormStd);
+        this.timeForm = timeFormStd;
+
     }
 
     public TimeForm(final String time, final ITimeForm timeForm) {
-        this.time = timeForm.convertTimeFormat(time, timeForm);
+        this.time = timeForm.convertTimeFormatStr(time, timeForm);
         this.timeForm = timeForm;
+    }
+
+    private TimeFormStd checkTimeForm(final String time) {
+        if (time.length() > YYYYMMDDHH24MISS.getLen() && time.length() <= YYYYMMDDHH24MISSMILLI.getLen())
+            return YYYYMMDDHH24MISSMILLI;
+
+        if (time.length() > YYYYMMDDHH24MISSMILLI.getLen() && time.length() <= YYYYMMDDHH24MISSMICRO.getLen())
+            return YYYYMMDDHH24MISSMICRO;
+
+        if (time.length() > YYYYMMDDHH24MISSMICRO.getLen())
+            return YYYYMMDDHH24MISSNANO;
+
+        return YYYYMMDDHH24MISS;
     }
 
     public String getTime() {
@@ -31,8 +49,13 @@ public class TimeForm {
     }
 
     public ITimeForm getTimeForm() { return this.timeForm; }
-    public String convertTimeFormat(final ITimeForm timeForm) {
-        return timeForm.convertTimeFormat(this.time, timeForm);
+
+    public String convertTimeFormatStr(final ITimeForm timeForm) {
+        return timeForm.convertTimeFormatStr(this.time, timeForm);
+    }
+
+    public LocalDateTime convertTimeFormatLocal(final ITimeForm timeForm) {
+        return timeForm.convertTimeFormatLocal(this.time, timeForm);
     }
 
     public boolean isFitTimeFormat(final String timeString, final ITimeForm format) {
