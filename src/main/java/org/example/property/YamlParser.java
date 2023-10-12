@@ -37,8 +37,6 @@ public class YamlParser implements IProperty{
         }
     }
 
-
-
     public Object value(final String keys) {
         if (this.checkEmpty()) return null;
         if (keys.isEmpty() || keys.isBlank()) {

@@ -16,7 +16,7 @@ class C_TimeFormTest {
     @MethodSource("isValidTimeFormat")
     void validTimeFormat1(String time, TimeFormStd timeFormat, TimeFormStd timeFormat2) {
         TimeForm timeForm = new TimeForm();
-        String convertTime = timeFormat.convertTimeFormat(time, timeFormat);
+        String convertTime = timeFormat.convertTimeFormatStr(time, timeFormat);
         assertThat(convertTime.length()).isEqualTo(timeFormat.getLen());
         assertThat(timeForm.isFitTimeFormat(convertTime, timeFormat)).isTrue();
     }
@@ -25,7 +25,7 @@ class C_TimeFormTest {
     @MethodSource("isValidTimeFormat")
     void validTimeFormat2(String time, TimeFormStd timeFormat, TimeFormStd timeFormat2) {
         TimeForm timeForm = new TimeForm();
-        String convertTime = timeFormat2.convertTimeFormat(time, timeFormat2);
+        String convertTime = timeFormat2.convertTimeFormatStr(time, timeFormat2);
         assertThat(convertTime.length()).isEqualTo(timeFormat2.getLen());
         assertThat(timeForm.isFitTimeFormat(convertTime, timeFormat2)).isTrue();
     }
@@ -54,7 +54,7 @@ class C_TimeFormTest {
     @MethodSource("isValidTimeFormatAll")
     void validTimeFormatAll(String time, TimeFormStd timeFormat) {
         TimeForm timeForm = new TimeForm();
-        String convertTime = timeFormat.convertTimeFormat(time, timeFormat);
+        String convertTime = timeFormat.convertTimeFormatStr(time, timeFormat);
         assertThat(convertTime.length()).isEqualTo(timeFormat.getLen());
         assertThat(timeForm.isFitTimeFormat(convertTime, timeFormat)).isTrue();
     }
@@ -165,7 +165,7 @@ class C_TimeFormTest {
     @MethodSource("isNotValidTimeFormat")
     void notValidTimeFormat(String time, TimeFormStd timeFormat, TimeFormStd timeFormat2) {
         TimeForm timeForm = new TimeForm();
-        String convertTime = timeFormat.convertTimeFormat(time, timeFormat);
+        String convertTime = timeFormat.convertTimeFormatStr(time, timeFormat);
         assertThat(convertTime.length()).isNotEqualTo(timeFormat2.getLen());
         assertThat(timeForm.isFitTimeFormat(convertTime, timeFormat2)).isFalse();
     }
@@ -194,6 +194,11 @@ class C_TimeFormTest {
     {
         TimeForm timeForm = new TimeForm("2021111104");
         Assertions.assertThat(timeForm.getTime().length()).isEqualTo(TimeFormStd.YYYYMMDDHH24MISS.getLen());
+
+
+        TimeForm timeForm2 = new TimeForm("20230925095411123");
+        System.out.println(timeForm2.getTime());
+        Assertions.assertThat(timeForm2.getTime().length()).isEqualTo(TimeFormStd.YYYYMMDDHH24MISSMILLI.getLen());
     }
 
     @Test
@@ -208,7 +213,7 @@ class C_TimeFormTest {
     {
         String time = "2021111104";
         TimeForm timeForm = new TimeForm(time);
-        String convertedTime = timeForm.convertTimeFormat(TimeFormPretty.HOUR_MINUTE);
+        String convertedTime = timeForm.convertTimeFormatStr(TimeFormPretty.HOUR_MINUTE);
 
         System.out.println(convertedTime);
 
