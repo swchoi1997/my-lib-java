@@ -23,6 +23,17 @@ dependencies {
     // https://mvnrepository.com/artifact/com.jcraft/jsch
     implementation 'com.jcraft:jsch:0.1.55'
 
+    // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
+    implementation 'com.zaxxer:HikariCP:5.0.1'
+
+    // https://mvnrepository.com/artifact/mysql/mysql-connector-java
+    implementation 'mysql:mysql-connector-java:8.0.33'
+
+    // https://mvnrepository.com/artifact/org.postgresql/postgresql
+    implementation 'org.postgresql:postgresql:42.6.0'
+
+
+
 
     //HACK
     implementation 'org.openjfx:javafx-controls:11.0.2'

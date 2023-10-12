@@ -81,12 +81,13 @@ public class SshTunnelConn implements SshTunnel {
 
         try {
             this.session.setPortForwardingL(
-                    this.sshConnectionInfo.getPort(),
+                    0,
                     this.sshConnectionInfo.getHost(),
                     port);
         } catch (JSchException e) {
             throw new RuntimeException(e);
         }
+
         return this;
     }
 

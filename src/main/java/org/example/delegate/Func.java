@@ -1,5 +1,6 @@
 package org.example.delegate;
 
-public interface Func<F> extends Delegate{
-    F invork() throws Exception;
+@FunctionalInterface
+public interface Func<R> extends Delegate{
+    R invork() throws Exception;
 }
