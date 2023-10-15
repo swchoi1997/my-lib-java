@@ -1,4 +1,4 @@
-package org.example.database;
+package org.example.database.source;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

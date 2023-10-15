@@ -1,4 +1,4 @@
-package org.example.database;
+package org.example.database.help;
 
 public final class DBHelper {
     public static int DBM_CONNECT_TIMEOUT_SEC = 10;

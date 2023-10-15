@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.example.database.DBHelper;
+import org.example.database.help.DBHelper;
 
 public enum DBPropertyType implements Serializable {
 
