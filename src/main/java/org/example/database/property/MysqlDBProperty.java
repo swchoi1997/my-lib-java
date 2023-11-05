@@ -1,6 +1,6 @@
 package org.example.database.property;
 
-import org.example.database.DBHelper;
+import org.example.database.help.DBHelper;
 
 public class MysqlDBProperty extends DBProperty {
 

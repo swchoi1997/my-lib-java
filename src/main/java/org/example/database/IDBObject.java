@@ -2,6 +2,7 @@ package org.example.database;
 
 import java.io.Serializable;
 import java.sql.Connection;
+import org.example.database.source.QueryResultSet;
 import org.example.ssh.SshTunnel;
 
 public interface IDBObject extends Serializable, SshTunnel {

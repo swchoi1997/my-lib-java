@@ -2,6 +2,7 @@ package org.example.database;
 
 import java.sql.SQLException;
 import org.apache.log4j.Logger;
+import org.example.database.help.DBHelper;
 
 public class DBPing extends Thread {
     private static final Logger LOG = Logger.getLogger(DBPing.class);

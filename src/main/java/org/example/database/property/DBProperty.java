@@ -1,7 +1,7 @@
 package org.example.database.property;
 
 import java.io.Serializable;
-import org.example.database.DBHelper;
+import org.example.database.help.DBHelper;
 
 public class DBProperty implements Serializable {
 
@@ -26,13 +26,25 @@ public class DBProperty implements Serializable {
                       final String dbId,
                       final String dbPw,
                       final int dbPort) {
-        this(dbPropertyType,
-                dbName,
-                dbIp,
-                dbId,
-                dbPw,
-                dbPort,
+        this(dbPropertyType, dbName, dbIp, dbId, dbPw, dbPort,
                 true,
+                DBHelper.CONNECTION_TIMEOUT,
+                600000,
+                1800000,
+                dbPropertyType.getPingQuery(),
+                DBHelper.PING_SEC,
+                10,
+                60000);
+    }
+
+    public DBProperty(final DBPropertyType dbPropertyType,
+                      final String dbName,
+                      final String dbIp,
+                      final String dbId,
+                      final String dbPw,
+                      final int dbPort,
+                      final boolean isAutoCommit) {
+        this(dbPropertyType, dbName, dbIp, dbId, dbPw, dbPort, isAutoCommit,
                 DBHelper.CONNECTION_TIMEOUT,
                 600000,
                 1800000,

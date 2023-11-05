@@ -1,4 +1,4 @@
-package org.example.database;
+package org.example.database.source;
 
 import com.zaxxer.hikari.HikariConfig;
 import java.sql.Connection;
