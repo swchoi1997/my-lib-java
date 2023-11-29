@@ -5,7 +5,9 @@ public enum Base{
     NONE(""),
     DOT("\\."),
     ZERO("0"),
-    ONE("1");
+    ONE("1"),
+    BYTE_LENGTH("4")
+    ;
 
     private final String value;
 
