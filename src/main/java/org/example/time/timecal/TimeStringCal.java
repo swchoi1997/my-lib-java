@@ -8,15 +8,11 @@ import static org.example.time.timeformat.TimeFormStd.YYYYMMDDHH24MISSMICRO;
 import static org.example.time.timeformat.TimeFormStd.YYYYMMDDHH24MISSMILLI;
 import static org.example.time.timeformat.TimeFormStd.YYYYMMDDHH24MISSNANO;
 
-import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import org.example.delegate.Action1;
 import org.example.time.timeformat.ITimeForm;
 import org.example.time.timeformat.TimeForm;
-import org.example.time.timeformat.TimeFormStd;
 
 public class TimeStringCal {
 
@@ -104,7 +100,7 @@ public class TimeStringCal {
 
         while (0L != end.compareTime(start, type.getChronoUnit())) {
             try {
-                action.invork(start);
+                action.invoke(start);
                 start = start.calculateTime(type, intervalCnt);
                 Thread.sleep(1);
 

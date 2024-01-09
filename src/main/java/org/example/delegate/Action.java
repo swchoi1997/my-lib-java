@@ -5,10 +5,10 @@ import java.util.Objects;
 
 @FunctionalInterface
 public interface Action extends Delegate{
-    void invork();
+    void invoke() throws InterruptedException;
 
     default Action andThen(Action after) {
         Objects.requireNonNull(after);
-        return () -> { invork(); after.invork(); };
+        return () -> { invoke(); after.invoke(); };
     }
 }

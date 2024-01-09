@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.example.delegate.Delegate;
+
 import org.example.delegate.Func2;
 import org.example.time.timeformat.TimeFormStd;
 
@@ -41,7 +41,7 @@ public enum TimeFieldType {
 
     public static String addTime(final TimeFieldType type, final LocalDateTime baseTime, final long addTime)
             throws Exception {
-        LocalDateTime resultDateTime = TimeFieldType.findFunc(type).invork(baseTime, addTime);
+        LocalDateTime resultDateTime = TimeFieldType.findFunc(type).invoke(baseTime, addTime);
         if (type == MILLI_SECOND) {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern(TimeFormStd.YYYYMMDDHH24MISSMILLI.getForm());
             return resultDateTime.format(formatter);

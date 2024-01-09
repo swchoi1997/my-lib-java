@@ -4,15 +4,15 @@ import java.util.Objects;
 
 @FunctionalInterface
 public interface Func1<T1, R> extends Delegate {
-    R invork(T1 t1) throws Exception;
+    R invoke(T1 t1) throws InterruptedException;
 
     default <V> Func1<V, R> compose(Func1<? super V, ? extends T1> before) {
         Objects.requireNonNull(before);
-        return (V v) -> invork(before.invork(v));
+        return (V v) -> invoke(before.invoke(v));
     }
 
     default <V> Func1<T1, V> andThen(Func1<? super R, ? extends V> after) {
         Objects.requireNonNull(after);
-        return (T1 t1) -> after.invork(invork(t1));
+        return (T1 t1) -> after.invoke(invoke(t1));
     }
 }
