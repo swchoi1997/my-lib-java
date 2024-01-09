@@ -50,7 +50,7 @@ public class SshTunnelConn implements SshTunnel {
 
         if (action != null) {
             try {
-                action.invork();
+                action.invoke();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
