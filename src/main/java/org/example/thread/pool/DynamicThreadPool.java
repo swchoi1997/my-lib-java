@@ -10,12 +10,25 @@ public class DynamicThreadPool extends ThreadPoolExecutor {
         return new DynamicThreadPool(corePoolSize, maximumPoolSize);
     }
 
+    public static ThreadPoolExecutor newDynamicThreadPool(int corePoolSize, BlockingQueue<Runnable> queue) {
+        return new DynamicThreadPool(corePoolSize, queue.size(), queue);
+    }
+
     private DynamicThreadPool(int corePoolSize, int maximumPoolSize) {
         super(corePoolSize,
                 maximumPoolSize,
                 60L,
                 TimeUnit.SECONDS,
                 new ArrayBlockingQueue<>(maximumPoolSize),
+                new WaitingThreadExceptionPolicy());
+    }
+
+    private DynamicThreadPool(int corePoolSize, int maximumPoolSize, BlockingQueue<Runnable> queue) {
+        super(corePoolSize,
+                maximumPoolSize,
+                60L,
+                TimeUnit.SECONDS,
+                queue,
                 new WaitingThreadExceptionPolicy());
     }
 
