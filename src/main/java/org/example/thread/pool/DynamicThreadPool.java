@@ -14,7 +14,7 @@ public final class DynamicThreadPool extends ThreadPoolExecutor {
     }
 
     public static ThreadPoolExecutor newDynamicThreadPool(int corePoolSize, BlockingQueue<Runnable> queue) {
-        return new DynamicThreadPool(corePoolSize, queue.size(), queue);
+        return new DynamicThreadPool(corePoolSize, queue.remainingCapacity(), queue);
     }
 
     private DynamicThreadPool(int corePoolSize, int maximumPoolSize) {
@@ -65,7 +65,7 @@ public final class DynamicThreadPool extends ThreadPoolExecutor {
                 this.getQueue().offer(poll);
             }
 
-            if (this.getQueue().size() < this.getMaximumPoolSize() && handler.getBlockingQueue().isEmpty()) {
+            if (this.getQueue().remainingCapacity() > 0 && handler.getBlockingQueue().isEmpty()) {
                 this.mainQueueFullFlag.compareAndSet(true, false);
             }
         }
