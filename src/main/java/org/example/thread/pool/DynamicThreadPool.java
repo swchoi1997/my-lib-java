@@ -10,10 +10,16 @@ public final class DynamicThreadPool extends ThreadPoolExecutor {
     private final AtomicBoolean mainQueueFullFlag;
 
     public static ThreadPoolExecutor newDynamicThreadPool(int corePoolSize, int maximumPoolSize) {
+        if (corePoolSize <= 0 || maximumPoolSize <= 0 || corePoolSize > maximumPoolSize) {
+            throw new IllegalArgumentException();
+        }
         return new DynamicThreadPool(corePoolSize, maximumPoolSize);
     }
 
     public static ThreadPoolExecutor newDynamicThreadPool(int corePoolSize, BlockingQueue<Runnable> queue) {
+        if (corePoolSize <= 0 || queue.remainingCapacity() <= 0 || corePoolSize > queue.remainingCapacity()) {
+            throw new IllegalArgumentException();
+        }
         return new DynamicThreadPool(corePoolSize, queue.remainingCapacity(), queue);
     }
 
