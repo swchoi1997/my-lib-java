@@ -21,13 +21,13 @@ public class TimeForm {
 
     public TimeForm(final String time) {
         final TimeFormStd timeFormStd = this.checkTimeForm(time);
-        this.time = timeFormStd.convertTimeFormatStr(time, timeFormStd);
+        this.time = TimeFormatUtils.convertTimeFormatStr(time, timeFormStd);
         this.timeForm = timeFormStd;
 
     }
 
     public TimeForm(final String time, final ITimeForm timeForm) {
-        this.time = timeForm.convertTimeFormatStr(time, timeForm);
+        this.time = TimeFormatUtils.convertTimeFormatStr(time, timeForm);
         this.timeForm = timeForm;
     }
 
@@ -51,11 +51,11 @@ public class TimeForm {
     public ITimeForm getTimeForm() { return this.timeForm; }
 
     public String convertTimeFormatStr(final ITimeForm timeForm) {
-        return timeForm.convertTimeFormatStr(this.time, timeForm);
+        return TimeFormatUtils.convertTimeFormatStr(this.time, timeForm);
     }
 
     public LocalDateTime convertTimeFormatLocal(final ITimeForm timeForm) {
-        return timeForm.convertTimeFormatLocal(this.time, timeForm);
+        return TimeFormatUtils.convertTimeFormatLocal(this.time, timeForm);
     }
 
     public boolean isFitTimeFormat(final String timeString, final ITimeForm format) {
