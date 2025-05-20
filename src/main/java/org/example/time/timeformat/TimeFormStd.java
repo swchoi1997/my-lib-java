@@ -1,5 +1,10 @@
 package org.example.time.timeformat;
 
+/**
+ * Standard fixed-width time formats used internally for parsing and
+ * calculations.
+ */
+
 import java.util.Collections;
 import java.util.Map;
 import java.util.function.Function;
@@ -31,15 +36,24 @@ public enum TimeFormStd implements ITimeForm {
         this.len = len;
     }
 
+    /**
+     * Looks up a {@link TimeFormStd} instance by the expected string length.
+     */
     public static TimeFormStd getForm(Integer length) {
         return TIME_FORM_STD.get(length);
     }
 
     @Override
+    /**
+     * Returns the date-time pattern.
+     */
     public String getForm() {
         return form;
     }
 
+    /**
+     * Length of the time string represented by this format.
+     */
     public int getLen() {
         return len;
     }

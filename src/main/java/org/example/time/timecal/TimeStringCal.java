@@ -14,38 +14,67 @@ import org.example.delegate.Action1;
 import org.example.time.timeformat.ITimeForm;
 import org.example.time.timeformat.TimeForm;
 
+/**
+ * Utility class for manipulating a time string using {@link TimeFieldType}
+ * values. It wraps a {@link TimeForm} and exposes helper methods for common
+ * calculations.
+ */
 public class TimeStringCal {
 
 
     private final TimeForm timeForm;
 
+    /**
+     * Creates a new instance using the current system time.
+     */
     public TimeStringCal() {
         this.timeForm = new TimeForm();
     }
 
+    /**
+     * Creates a new instance with the given time string.
+     */
     public TimeStringCal(String timeValue) {
         this.timeForm = new TimeForm(timeValue);
     }
 
+    /**
+     * Creates a new instance with the given time string and explicit format.
+     */
     public TimeStringCal(String timeValue, ITimeForm iTimeForm) {
         this.timeForm = new TimeForm(timeValue, iTimeForm);
     }
 
 
+    /**
+     * Returns the underlying time string.
+     */
     public String getTime() {
         return timeForm.getTime();
     }
 
+    /**
+     * Returns the {@link TimeForm} instance used by this calculator.
+     */
     public TimeForm getTimeForm() {
         return timeForm;
     }
 
+    /**
+     * Returns the format of the contained time value.
+     */
     public ITimeForm getTimeFormat(){ return timeForm.getTimeForm(); }
 
+    /**
+     * Compares this time with another using seconds as the unit.
+     */
     public Long compareTime(final TimeStringCal compareTime) {
         return this.compareTime(compareTime, ChronoUnit.SECONDS);
     }
 
+    /**
+     * Compares this time with another using the supplied unit.
+     */
     public Long compareTime(final TimeStringCal compareTime, final ChronoUnit chronoUnit) {
         LocalDateTime base = this.getTimeForm().convertTimeFormatLocal(this.getTimeFormat());
         LocalDateTime compare = compareTime.getTimeForm().convertTimeFormatLocal(compareTime.getTimeFormat());
@@ -54,18 +83,30 @@ public class TimeStringCal {
     }
 
 
+    /**
+     * Returns {@code true} if the time values are equal.
+     */
     public boolean eq(final TimeStringCal compareTime) {
         return Long.parseLong(this.getTime()) - Long.parseLong(compareTime.getTime()) == 0L;
     }
 
+    /**
+     * Calculates the next time value for the given field type.
+     */
     public TimeStringCal next(final TimeFieldType type) throws Exception {
         return this.calculateTime(type, 1);
     }
 
+    /**
+     * Calculates the previous time value for the given field type.
+     */
     public TimeStringCal before(final TimeFieldType type) throws Exception{
         return this.calculateTime(type, -1);
     }
 
+    /**
+     * Adds {@code addValue} to this time in the specified field.
+     */
     public TimeStringCal calculateTime(final TimeFieldType type, final long addValue) throws Exception {
         return new TimeStringCal(TimeFieldType.addTime(type, this.stringTimeToLocalTime(type), addValue));
     }
@@ -83,6 +124,9 @@ public class TimeStringCal {
         return this.timeForm.convertTimeFormatLocal(YYYYMMDDHH24MISS);
     }
 
+    /**
+     * Iterates over a time range calling {@code action} for each value.
+     */
     public static void coroutine(final String startTime, final String endTime,
                                  final TimeFieldType type, final long interval, final Action1<TimeStringCal> action) {
 

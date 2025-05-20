@@ -11,14 +11,25 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
+/**
+ * Represents a concrete time value together with its {@link ITimeForm}. It can
+ * convert between formats and to {@link LocalDateTime}.
+ */
+
 public class TimeForm {
     private final String time;
     private final ITimeForm timeForm;
 
+    /**
+     * Creates a new instance using the current time in {@link TimeFormStd#YYYYMMDDHH24MISS} format.
+     */
     public TimeForm() {
         this(LocalDateTime.now().format(DateTimeFormatter.ofPattern(YYYYMMDDHH24MISS.getForm())), YYYYMMDDHH24MISS);
     }
 
+    /**
+     * Creates an instance by inferring the format from {@code time}.
+     */
     public TimeForm(final String time) {
         final TimeFormStd timeFormStd = this.checkTimeForm(time);
         this.time = timeFormStd.convertTimeFormatStr(time, timeFormStd);
@@ -26,6 +37,9 @@ public class TimeForm {
 
     }
 
+    /**
+     * Creates an instance using the provided time string and format.
+     */
     public TimeForm(final String time, final ITimeForm timeForm) {
         this.time = timeForm.convertTimeFormatStr(time, timeForm);
         this.timeForm = timeForm;
@@ -44,20 +58,35 @@ public class TimeForm {
         return YYYYMMDDHH24MISS;
     }
 
+    /**
+     * Returns the raw time string stored in this object.
+     */
     public String getTime() {
         return time;
     }
 
+    /**
+     * The format in which this time value is stored.
+     */
     public ITimeForm getTimeForm() { return this.timeForm; }
 
+    /**
+     * Converts this time to another format and returns it as a string.
+     */
     public String convertTimeFormatStr(final ITimeForm timeForm) {
         return timeForm.convertTimeFormatStr(this.time, timeForm);
     }
 
+    /**
+     * Converts this time to a {@link LocalDateTime} using the given format.
+     */
     public LocalDateTime convertTimeFormatLocal(final ITimeForm timeForm) {
         return timeForm.convertTimeFormatLocal(this.time, timeForm);
     }
 
+    /**
+     * Validates the given string with the supplied format.
+     */
     public boolean isFitTimeFormat(final String timeString, final ITimeForm format) {
         if (timeString.length() != format.getForm().length()) {
             return false;

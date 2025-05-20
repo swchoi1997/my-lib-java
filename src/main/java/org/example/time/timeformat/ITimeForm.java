@@ -16,14 +16,27 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import org.example.base.Base;
 
+/**
+ * Describes a time pattern and provides default helper methods for
+ * converting between different patterns and `LocalDateTime`.
+ */
 public interface ITimeForm {
 
+    /**
+     * Returns the pattern string represented by this format.
+     */
     String getForm();
 
+    /**
+     * Creates a {@link DateTimeFormatter} instance for the supplied format.
+     */
     default DateTimeFormatter getDateTimeFormatter(final ITimeForm eTimeForm) {
         return DateTimeFormatter.ofPattern(eTimeForm.getForm());
     }
 
+    /**
+     * Checks whether two strings conform to the same format.
+     */
     default boolean isSameTimeFormat(final ITimeForm timeForm, final String strTime1, final String strTime2) {
         final SimpleDateFormat simpleDateFormat = new SimpleDateFormat(timeForm.getForm());
         try {
@@ -35,15 +48,24 @@ public interface ITimeForm {
         }
     }
 
+    /**
+     * Converts {@code time} to the given {@code timeForm} and returns the formatted string.
+     */
     default String convertTimeFormatStr(final String time, final ITimeForm timeForm) {
         LocalDateTime localDateTime = this.convertTimeFormatLocal(time, timeForm);
         return localDateTime.format(DateTimeFormatter.ofPattern(timeForm.getForm()));
     }
 
+    /**
+     * Converts {@link TimeForm} to a {@link LocalDateTime} value.
+     */
     default LocalDateTime convertTimeFormatLocal(final TimeForm timeForm) {
         return this.convertTimeFormatLocal(timeForm.getTime(), timeForm.getTimeForm());
     }
 
+    /**
+     * Parses the given time string according to {@code timeForm} and returns a {@link LocalDateTime}.
+     */
     default LocalDateTime convertTimeFormatLocal(final String time, final ITimeForm timeForm) {
         String timeFit = "";
         DateTimeFormatter inputFormatter = null;
