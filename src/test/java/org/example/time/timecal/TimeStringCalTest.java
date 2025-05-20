@@ -8,6 +8,7 @@ import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
 import org.example.base.Base;
@@ -158,12 +159,14 @@ class TimeStringCalTest {
     @ParameterizedTest(name = "type: {0}, time1: {1}, time2: {2}, addTime: {3}")
     @MethodSource("addTime2")
     public void CoroutineTest(TimeFieldType type, String time1, String time2, long addTime) {
-        TimeStringCal.coroutine(time1, time2, type, addTime, (start) -> System.out.println("-->" +  start.getTime()));
+        Consumer<TimeStringCal> print = (start) -> System.out.println("-->" +  start.getTime());
+        TimeStringCal.coroutine(time1, time2, type, addTime, print);
     }
 
     @Test
     public void CoroutineTest2() {
-        TimeStringCal.coroutine("20230405000004", "20230405000004000000100", NANO_SECOND, 1L, (start) -> System.out.println("-->" +  start.getTime()));
+        Consumer<TimeStringCal> print = (start) -> System.out.println("-->" +  start.getTime());
+        TimeStringCal.coroutine("20230405000004", "20230405000004000000100", NANO_SECOND, 1L, print);
     }
 
     static Stream<Arguments> addTime2() {
