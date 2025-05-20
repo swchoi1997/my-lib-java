@@ -1,5 +1,9 @@
 package org.example.time.timeformat;
 
+/**
+ * A collection of user friendly time patterns used primarily for display.
+ */
+
 public enum TimeFormPretty implements ITimeForm {
     HOUR_MINUTE("hh:mm"),
     HOUR_MINUTE_SECOND("hh:mm:ss"),
@@ -20,6 +24,9 @@ public enum TimeFormPretty implements ITimeForm {
     }
 
     @Override
+    /**
+     * Returns the format pattern.
+     */
     public String getForm() {
         return form;
     }

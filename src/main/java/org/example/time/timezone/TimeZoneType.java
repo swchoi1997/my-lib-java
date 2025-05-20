@@ -6,6 +6,10 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+/**
+ * Enumeration of commonly used time zone identifiers.
+ */
+
 public enum TimeZoneType {
 
     SEOUL("Asia/Seoul"),
@@ -66,6 +70,9 @@ public enum TimeZoneType {
         return timeZoneStr;
     }
 
+    /**
+     * Looks up the zone id string for the given enum value.
+     */
     public static String Find(TimeZoneType eTimeZone) {
         final String result = timeZone.get(eTimeZone);
         if (result != null) return result;
@@ -73,6 +80,9 @@ public enum TimeZoneType {
         throw new IllegalArgumentException();
     }
 
+    /**
+     * Resolves the enum constant from a zone id string.
+     */
     public static TimeZoneType Find(String timeZoneStr) {
         final TimeZoneType result = timeZoneId.get(timeZoneStr);
         if (result != null) return result;

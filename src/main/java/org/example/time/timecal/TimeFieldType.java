@@ -12,6 +12,12 @@ import java.util.stream.Stream;
 import org.example.delegate.Func2;
 import org.example.time.timeformat.TimeFormStd;
 
+/**
+ * Types of fields that can be incremented or decremented on a time string.
+ * Each constant stores the index, expected length and the function used to
+ * perform the calculation.
+ */
+
 public enum TimeFieldType {
 
     YEAR(0, 4, LocalDateTime::plusYears, ChronoUnit.YEARS),
@@ -32,6 +38,9 @@ public enum TimeFieldType {
             Stream.of(values()).collect(Collectors.toMap(Function.identity(), TimeFieldType::getFunc))
     );
 
+    /**
+     * Finds the enum constant for the given numeric field index.
+     */
     public static TimeFieldType find(final int field) {
         if (!TIME_FIELD.containsKey(field)) {
             throw new IllegalArgumentException();
@@ -39,6 +48,9 @@ public enum TimeFieldType {
         return TIME_FIELD.get(field);
     }
 
+    /**
+     * Adds {@code addTime} to {@code baseTime} using the specified field and returns the result formatted as a string.
+     */
     public static String addTime(final TimeFieldType type, final LocalDateTime baseTime, final long addTime)
             throws Exception {
         LocalDateTime resultDateTime = TimeFieldType.findFunc(type).invoke(baseTime, addTime);
@@ -62,6 +74,9 @@ public enum TimeFieldType {
 
     }
 
+    /**
+     * Retrieves the underlying calculation function for the given field type.
+     */
     public static Func2<LocalDateTime, Long, LocalDateTime> findFunc(final TimeFieldType type) {
         if (!TIME_DELEGATE.containsKey(type)) {
             throw new IllegalArgumentException();
@@ -82,18 +97,30 @@ public enum TimeFieldType {
         this.chronoUnit = chronoUnit;
     }
 
+    /**
+     * Index position of the field in the time string.
+     */
     public int getField() {
         return field;
     }
 
+    /**
+     * Length of the time portion represented by this field.
+     */
     public int getLength() {
         return length;
     }
 
+    /**
+     * Delegate function used to apply the addition.
+     */
     public Func2<LocalDateTime, Long, LocalDateTime> getFunc() {
         return func;
     }
 
+    /**
+     * {@link ChronoUnit} corresponding to this field.
+     */
     public ChronoUnit getChronoUnit() {
         return chronoUnit;
     }
