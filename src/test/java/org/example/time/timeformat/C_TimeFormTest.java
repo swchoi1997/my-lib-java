@@ -10,13 +10,15 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import org.example.time.timeformat.TimeFormatUtils;
+
 class C_TimeFormTest {
 
     @ParameterizedTest(name = "time: {0} timeFormat : {1} timeFormat2 : {2}")
     @MethodSource("isValidTimeFormat")
     void validTimeFormat1(String time, TimeFormStd timeFormat, TimeFormStd timeFormat2) {
         TimeForm timeForm = new TimeForm();
-        String convertTime = timeFormat.convertTimeFormatStr(time, timeFormat);
+        String convertTime = TimeFormatUtils.convertTimeFormatStr(time, timeFormat);
         assertThat(convertTime.length()).isEqualTo(timeFormat.getLen());
         assertThat(timeForm.isFitTimeFormat(convertTime, timeFormat)).isTrue();
     }
@@ -25,7 +27,7 @@ class C_TimeFormTest {
     @MethodSource("isValidTimeFormat")
     void validTimeFormat2(String time, TimeFormStd timeFormat, TimeFormStd timeFormat2) {
         TimeForm timeForm = new TimeForm();
-        String convertTime = timeFormat2.convertTimeFormatStr(time, timeFormat2);
+        String convertTime = TimeFormatUtils.convertTimeFormatStr(time, timeFormat2);
         assertThat(convertTime.length()).isEqualTo(timeFormat2.getLen());
         assertThat(timeForm.isFitTimeFormat(convertTime, timeFormat2)).isTrue();
     }
@@ -54,7 +56,7 @@ class C_TimeFormTest {
     @MethodSource("isValidTimeFormatAll")
     void validTimeFormatAll(String time, TimeFormStd timeFormat) {
         TimeForm timeForm = new TimeForm();
-        String convertTime = timeFormat.convertTimeFormatStr(time, timeFormat);
+        String convertTime = TimeFormatUtils.convertTimeFormatStr(time, timeFormat);
         assertThat(convertTime.length()).isEqualTo(timeFormat.getLen());
         assertThat(timeForm.isFitTimeFormat(convertTime, timeFormat)).isTrue();
     }
@@ -165,7 +167,7 @@ class C_TimeFormTest {
     @MethodSource("isNotValidTimeFormat")
     void notValidTimeFormat(String time, TimeFormStd timeFormat, TimeFormStd timeFormat2) {
         TimeForm timeForm = new TimeForm();
-        String convertTime = timeFormat.convertTimeFormatStr(time, timeFormat);
+        String convertTime = TimeFormatUtils.convertTimeFormatStr(time, timeFormat);
         assertThat(convertTime.length()).isNotEqualTo(timeFormat2.getLen());
         assertThat(timeForm.isFitTimeFormat(convertTime, timeFormat2)).isFalse();
     }
