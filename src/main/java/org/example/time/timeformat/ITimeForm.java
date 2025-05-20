@@ -79,10 +79,10 @@ public interface ITimeForm {
     }
 
     private String fillBlankDate(String time) {
-        return time.length() > YYYYMMDD.getLen() ? time : fileDate(time, "01");
+        return time.length() > YYYYMMDD.getLen() ? time : fillDate(time, "01");
     }
 
-    private String fileDate(String time, final String fillStr) {
+    private String fillDate(String time, final String fillStr) {
         if (time.length() < YYYY.getLen()) {
             return LocalDateTime.now().getYear() + fillStr.repeat(2);
         } else if (time.length() < YYYYMM.getLen()) {
