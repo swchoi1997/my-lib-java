@@ -66,14 +66,14 @@ public enum TimeZoneType {
         return timeZoneStr;
     }
 
-    public static String Find(TimeZoneType eTimeZone) {
+    public static String find(TimeZoneType eTimeZone) {
         final String result = timeZone.get(eTimeZone);
         if (result != null) return result;
 
         throw new IllegalArgumentException();
     }
 
-    public static TimeZoneType Find(String timeZoneStr) {
+    public static TimeZoneType find(String timeZoneStr) {
         final TimeZoneType result = timeZoneId.get(timeZoneStr);
         if (result != null) return result;
 
