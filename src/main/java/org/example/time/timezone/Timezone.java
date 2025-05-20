@@ -14,12 +14,12 @@ public class Timezone {
     }
 
     public Timezone(final String desireTimeZone) {
-        this(TimeZoneType.Find(desireTimeZone));
+        this(TimeZoneType.find(desireTimeZone));
     }
 
 
     public Timezone(final TimeZoneType desireTimeZone) {
-        this(ZoneId.of(desireTimeZone.getTimeZoneStr()), TimeZoneType.Find(desireTimeZone));
+        this(ZoneId.of(desireTimeZone.getTimeZoneStr()), TimeZoneType.find(desireTimeZone));
     }
 
     private Timezone(ZoneId timeZoneId, String timeZoneStr) {
