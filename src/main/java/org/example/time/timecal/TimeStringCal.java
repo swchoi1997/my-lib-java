@@ -10,7 +10,7 @@ import static org.example.time.timeformat.TimeFormStd.YYYYMMDDHH24MISSNANO;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import org.example.delegate.Action1;
+import java.util.function.Consumer;
 import org.example.time.timeformat.ITimeForm;
 import org.example.time.timeformat.TimeForm;
 
@@ -84,7 +84,13 @@ public class TimeStringCal {
     }
 
     public static void coroutine(final String startTime, final String endTime,
-                                 final TimeFieldType type, final long interval, final Action1<TimeStringCal> action) {
+                                 final TimeFieldType type, final long interval, final Consumer<TimeStringCal> action) {
+        coroutine(startTime, endTime, type, interval, action, 0L);
+    }
+
+    public static void coroutine(final String startTime, final String endTime,
+                                 final TimeFieldType type, final long interval,
+                                 final Consumer<TimeStringCal> action, final long pauseMillis) {
 
         TimeStringCal start = new TimeStringCal(startTime);
         TimeStringCal end = new TimeStringCal(endTime);
@@ -100,9 +106,11 @@ public class TimeStringCal {
 
         while (0L != end.compareTime(start, type.getChronoUnit())) {
             try {
-                action.invoke(start);
+                action.accept(start);
                 start = start.calculateTime(type, intervalCnt);
-                Thread.sleep(1);
+                if (pauseMillis > 0) {
+                    Thread.sleep(pauseMillis);
+                }
 
             } catch (Exception e) {
                 throw new RuntimeException(e);
